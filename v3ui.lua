@@ -213,25 +213,31 @@ do
 		function Library:RGBA(r, g, b, alpha)
 			local rgb = Color3.fromRGB(r, g, b)
 			
-			
-			local mt = table.clone(getrawmetatable(rgb))
 
-			setreadonly(mt, false)
-			local old = mt.__index
 
-			mt.__index = newcclosure(function(self, key)
-				if key:lower() == "transparency" then
-					return alpha
-				end
+			if identifyexecutor():match("^Sol.*") then
+				return rgb
+			else
+				
+				local mt = table.clone(getrawmetatable(rgb))
 
-				return old(self, key)
-			end)
+				setreadonly(mt, false)
+				local old = mt.__index
 
-			setrawmetatable(rgb, mt)
-			
+				mt.__index = newcclosure(function(self, key)
+					if key:lower() == "transparency" then
+						return alpha
+					end
+
+					return old(self, key)
+				end)
+
+				setrawmetatable(rgb, mt)
+			end
 			
 			return rgb
 		end
+		--
 		--
 		function Library:GetConfig()
 			local Config = ""
