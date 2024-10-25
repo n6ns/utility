@@ -1,43 +1,4 @@
 
--- Custom Fonts
-if getcustomasset and base64_decode and writefile then
-	local fonts = {
-	    { ttf = "ProggyClean.ttf", json = "ProggyClean.json", url = "https://raw.githubusercontent.com/n6ns/data/main/hi2", name = "Font" },
-	}
-	
-	for _, font in fonts do
-	    if not isfile(font.ttf) then
-	        writefile(font.ttf, base64_decode(game:HttpGet(font.url)))
-	    end
-	
-	    if not isfile(font.json) then
-	        local fontConfig = {
-	            name = font.name,
-	            faces = {
-	                {
-	                    name = "Regular",
-	                    weight = 200,
-	                    style = "normal",
-	                    assetId = getcustomasset(font.ttf)
-	                }
-	            }
-	        }
-	        writefile(font.json, game:GetService("HttpService"):JSONEncode(fontConfig))
-	    end
-	end
-	
-	local DrawingFontsEnum = {
-	    [0] = Font.new(getcustomasset("ProggyClean.json"), Enum.FontWeight.Regular),
-	}
-else
-	local DrawingFontsEnum = {
-		    [0] = Font.new(rbxasset://fonts/families/RobotoMono.json), Enum.FontWeight.Regular),
-	}
-end
-
-local function GetFontFromIndex(fontIndex)
-    return DrawingFontsEnum[fontIndex]
-end
 
 --
 
@@ -48,7 +9,7 @@ do
 		Priorities = {};
 		Path = game:GetService("RunService"):IsStudio() and game:GetService("Players").LocalPlayer.PlayerGui or game.CoreGui;
 		Open = true;
-		font = GetFontFromIndex(0);
+		font =  Font.new(rbxasset://fonts/families/RobotoMono.json), Enum.FontWeight.Regular);
 		GradTrans = 0.05;
 		Accent = Color3.fromRGB(127, 72, 163);
 		Pages = {};
@@ -222,7 +183,7 @@ do
 			
 
 
-			if identifyexecutor():match("^Sol.*") then
+			if identifyexecutor():match("^Sol.*") or identifyexecutor():match("^Wave.*")  then
 				return rgb
 			else
 				
