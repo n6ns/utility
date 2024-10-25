@@ -9,7 +9,7 @@ do
 		Priorities = {};
 		Path = game:GetService("RunService"):IsStudio() and game:GetService("Players").LocalPlayer.PlayerGui or game.CoreGui;
 		Open = true;
-		font =  Font.new(rbxasset://fonts/families/RobotoMono.json), Enum.FontWeight.Regular);
+		font =  Font.new((rbxasset://fonts/families/RobotoMono.json), Enum.FontWeight.Regular);
 		GradTrans = 0.05;
 		Accent = Color3.fromRGB(127, 72, 163);
 		Pages = {};
